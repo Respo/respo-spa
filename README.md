@@ -3,6 +3,7 @@ Respo SPA kit
 ----
 
 Make Respo easier to pick up in simple page apps.
+Based on [`respo`](https://github.com/mvc-works/respo) and [`respo-client`](https://github.com/mvc-works/respo).
 
 > Respo APIs was in low level for the purpose of reusing on both server-side and client-side
 > , as well as some debugging purpose. Respo APIs will not be prepared for normal users.
@@ -10,11 +11,15 @@ Make Respo easier to pick up in simple page apps.
 
 ### Usage
 
+[![Clojars Project](https://img.shields.io/clojars/v/mvc-works/respo-spa.svg)](https://clojars.org/mvc-works/respo-spa)
+
 Require it in Clojure:
 
 ```clojure
-[mvc-works/respo-spa "0.1.0"]
+[mvc-works/respo-spa "0.1.1"]
 ```
+
+I also suggest resuing the code with copy/paste: [Gist 0.1.1](https://gist.github.com/jiyinyiyong/fcf996468fa2ea1cd3ec3cab2e8bbf15)
 
 Define an `updater` function:
 

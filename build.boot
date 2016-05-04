@@ -12,7 +12,7 @@
                  [mvc-works/boot-html-entry "0.1.1"       :scope "test"]
                  [cirru/boot-cirru-sepal    "0.1.2"       :scope "test"]
                  [mvc-works/hsl             "0.1.2"]
-                 [mvc-works/respo           "0.1.18"]
+                 [mvc-works/respo           "0.1.19"]
                  [mvc-works/respo-client    "0.1.11"]]
 
   :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"}]))
@@ -22,7 +22,7 @@
          '[html-entry.core    :refer [html-entry]]
          '[cirru-sepal.core   :refer [cirru-sepal]])
 
-(def +version+ "0.1.0")
+(def +version+ "0.1.1")
 
 (task-options!
   pom {:project     'mvc-works/respo-spa

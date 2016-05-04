@@ -1,9 +1,9 @@
 
 ns respo-spa.core $ :require
   [] respo.alias :refer $ [] create-comp div span
-  [] respo.renderer.expander :refer $ [] render-app
+  [] respo.render.expander :refer $ [] render-app
   [] respo.controller.deliver :refer $ [] build-deliver-event mutate-factory
-  [] respo.renderer.differ :refer $ [] find-element-diffs
+  [] respo.render.differ :refer $ [] find-element-diffs
   [] respo.util.format :refer $ [] purify-element
   [] respo-client.controller.client :refer $ [] initialize-instance activate-instance patch-instance
 
