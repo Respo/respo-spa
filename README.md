@@ -26,7 +26,7 @@ Define an `updater` function:
 ```clojure
 (ns respo-spa.updater.core)
 
-(defn updater [store op op-data op-id op-time] (inc store))
+(defn updater [store op op-data] (inc store))
 ```
 
 Create a component in Respo:
@@ -60,23 +60,29 @@ And use glue code to connect them:
 ; global store in Atom
 (defonce global-store (atom 0))
 
+; global states in Atom
+(defonce global-states (atom {}))
+
 ; a `dispatch` function to update store
 (defn dispatch [op op-data]
-  (let [an-id (.valueOf (js/Date.))
-        a-time (.valueOf (js/Date.))
-        new-store (updater @global-store op op-data an-id a-time)]
+  (let [new-store (updater @global-store op op-data)]
     (reset! global-store new-store)))
 
 ; some wrap-up on `render` which is provided in this library
 (defn render-app []
   (let [target (.querySelector js/document "#app")]
-    (render (comp-container @global-store) target dispatch)))
+    (render
+      (comp-container @global-store)
+      target
+      dispatch
+      global-states)))
 
-; main function, call `render-app` and call again on store changes
+; main function, call `render-app` and call again on changes
 (defn -main []
   (enable-console-print!)
   (render-app)
-  (add-watch global-store :rerender render-app))
+  (add-watch global-store :rerender render-app)
+  (add-watch global-states :rerender render-app))
 
 (set! (.-onload js/window) -main)
 

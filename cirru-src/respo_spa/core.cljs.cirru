@@ -7,27 +7,27 @@ ns respo-spa.core $ :require
   [] respo.util.format :refer $ [] purify-element
   [] respo-client.controller.client :refer $ [] initialize-instance activate-instance patch-instance
 
-defonce global-states $ atom ({})
-
 defonce global-element $ atom nil
 
-defn render-element (markup)
+defn render-element (markup states-ref)
   let
-    (build-mutate $ mutate-factory global-element global-states)
-    render-app markup @global-states build-mutate
+    (build-mutate $ mutate-factory global-element states-ref)
+    render-app markup @states-ref build-mutate
 
-defn mount-app (markup target dispatch)
+defn mount-app
+  markup target dispatch states-ref
   let
-    (element $ render-element markup)
+    (element $ render-element markup states-ref)
       deliver-event $ build-deliver-event global-element dispatch
     initialize-instance target deliver-event
     activate-instance (purify-element element)
       , target deliver-event
     reset! global-element element
 
-defn rerender-app (markup target dispatch)
+defn rerender-app
+  markup target dispatch states-ref
   let
-    (element $ render-element markup)
+    (element $ render-element markup states-ref)
       deliver-event $ build-deliver-event global-element dispatch
       changes $ find-element-diffs ([])
         []
@@ -37,7 +37,8 @@ defn rerender-app (markup target dispatch)
     patch-instance changes target deliver-event
     reset! global-element element
 
-defn render (markup target dispatch)
+defn render
+  markup target dispatch states-ref
   if (some? @global-element)
-    rerender-app markup target dispatch
-    mount-app markup target dispatch
+    rerender-app markup target dispatch states-ref
+    mount-app markup target dispatch states-ref

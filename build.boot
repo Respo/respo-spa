@@ -22,7 +22,7 @@
          '[html-entry.core    :refer [html-entry]]
          '[cirru-sepal.core   :refer [cirru-sepal]])
 
-(def +version+ "0.1.1")
+(def +version+ "0.1.3")
 
 (task-options!
   pom {:project     'mvc-works/respo-spa

@@ -6,11 +6,11 @@ ns respo-spa.demo $ :require
 
 defonce global-store $ atom 0
 
+defonce global-states $ atom ({})
+
 defn dispatch (op op-data)
   let
-    (an-id $ .valueOf (js/Date.))
-      a-time $ .valueOf (js/Date.)
-      new-store $ updater @global-store op op-data an-id a-time
+    (new-store $ updater @global-store op op-data)
 
     reset! global-store new-store
 
@@ -18,12 +18,13 @@ defn render-app ()
   let
     (target $ .querySelector js/document |#app)
     render (comp-container @global-store)
-      , target dispatch
+      , target dispatch global-states
 
 defn -main ()
   enable-console-print!
   render-app
   add-watch global-store :rerender render-app
+  add-watch global-states :rerender render-app
 
 set! (.-onload js/window)
   , -main
